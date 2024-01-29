@@ -54,7 +54,7 @@ var MannyAtks = {
   }
 };
 var IppoAtks = {
-  skills: ['Straight-Punch', 'Uppercut', 'Right-Hook', 'Liver-Blow', 'Body-Shot','Counter-Punch','Dempsey-Roll'],
+  skills: ['Straight-Punch', 'Right-Uppercut', 'Right-Hook', 'Liver-Blow', 'Body-Shot','Counter-Punch','Dempsey-Roll'],
   boxSkills: function() {
       let atk = Math.floor(Math.random() * this.skills.length);
       return this.skills[atk];
@@ -63,7 +63,7 @@ var IppoAtks = {
 
 let f1CurrentHp = fighter1.hp;
 let f2CurrentHp = fighter2.hp;
-let fightOver = false;
+let fightOver = false; // 
 
 console.log(`Here's our Main Event of the evening...\n`);
 console.log(`\n12 Rounds of Boxing\n`);
@@ -75,7 +75,7 @@ for (let index = 0; index < 12; index++) {
   let ippoRandomAtks = IppoAtks.boxSkills();
 
   setTimeout(function() {
-      if (fightOver) return;
+      if (fightOver) return; // if true then end the setTimeount and for loop
 
       let round = index + 1;
       let f1AtkDamage = calculateDamage(fighter1);
@@ -85,17 +85,23 @@ for (let index = 0; index < 12; index++) {
 
     if(firstToAtk()){
 
-      if (isCriticalHit()) {
-
-        f1AtkDamage = Math.floor((f1AtkDamage*1.2)+10); //  Double the damage for critical hit, in case of random damage is 0, add 10
-        f2CurrentHp -= f1AtkDamage;
-        console.log(`Manny attacks Ippo with a ${mannyRandomAtks} and got a CRITICAL DAMAGE of ${f1AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
-          if (f2CurrentHp <= 0) {
-            console.log(` `); 
-            console.log(`Ippo is K.O. Manny Pacquiao WINS`);
-              fightOver = true;
-              return;
-          }
+      if (isCriticalHit()) { //
+        f1AtkDamage = Math.floor((f1AtkDamage*1.2)+10);  //  increase the damage for critical hit, in case of random damage is 0, add 10
+            if(f1AtkDamage <=15){ //set a mininum damage for critical hit
+              f1AtkDamage = fighter1.strength;
+              f2CurrentHp -= f1AtkDamage;
+                console.log(`Manny attacks Ippo with a ${mannyRandomAtks} and does a damage of ${f1AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
+              }else{
+              f2CurrentHp -= f1AtkDamage;
+              console.log(`Manny attacks Ippo with a ${mannyRandomAtks} and got a CRITICAL DAMAGE of ${f1AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
+              if (f2CurrentHp <= 0) {
+                console.log(` `); 
+                console.log(`Ippo is K.O. Manny Pacquiao WINS`);
+                  fightOver = true;// when one of the fighters' Hp is <=0, the loop is ended.
+                  return;
+              }
+            }
+      
          } else {
             f2CurrentHp -= f1AtkDamage;
             if(f1AtkDamage === 0){
@@ -107,20 +113,26 @@ for (let index = 0; index < 12; index++) {
             if (f2CurrentHp <= 0) {
               console.log(` `);
               console.log(`Ippo is K.O. Manny Pacquiao WINS`);
-              fightOver = true;
+              fightOver = true;// when one of the fighters' Hp is <=0, the loop is ended.
               return;
             }
           }
               
                 if (isCriticalHit2()) {
-                  f2AtkDamage = Math.floor((f2AtkDamage*1.2)+10) // Double the damage for critical hit. in case of random damage is 0, add 10
-                  f1CurrentHp -= f2AtkDamage;
-                  console.log(`Ippo attacks Manny with a ${ippoRandomAtks} and got a CRITICAL DAMAGE of ${f2AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
-                  if (f1CurrentHp <= 0) {
-                    console.log(` `);
-                    console.log(`Manny is K.O. Ippo Makunochi WINS`);
-                    fightOver = true;
-                    return;
+                  f2AtkDamage = Math.floor((f2AtkDamage*1.2)+10); // Double the damage for critical hit. in case of random damage is 0, add 10
+                  if(f2AtkDamage <=15){  //set a mininum damage for critical hit
+                    f2AtkDamage = fighter2.strength;
+                    f1CurrentHp -= f2AtkDamage;
+                      console.log(`Ippo attacks Manny with a ${ippoRandomAtks} and does a damage of ${f2AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
+                    }else{
+                    f1CurrentHp -= f2AtkDamage;
+                    console.log(`Ippo attacks Manny with a ${ippoRandomAtks} and got a CRITICAL DAMAGE of ${f2AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
+                    if (f2CurrentHp <= 0) {
+                      console.log(` `); 
+                      console.log(`Ippo is K.O. Manny Pacquiao WINS`);
+                        fightOver = true;// when one of the fighters' Hp is <=0, the loop is ended.
+                        return;
+                    }
                   }
                   console.log(` `);
               } else {
@@ -133,7 +145,7 @@ for (let index = 0; index < 12; index++) {
                   if (f1CurrentHp <= 0) {
                     console.log(` `);
                     console.log(`Manny is K.O. Ippo Makunochi WINS`);
-                    fightOver = true;
+                    fightOver = true;// when one of the fighters' Hp is <=0, the loop is ended.
                     return;
                   }
                   console.log(` `);
@@ -142,14 +154,20 @@ for (let index = 0; index < 12; index++) {
                 
                 if (isCriticalHit2()) {
                   f2AtkDamage = Math.floor((f2AtkDamage*1.2)+10) // Double the damage for critical hit, in case of random damage is 0, add 10
-                  f1CurrentHp -= f2AtkDamage;
-                  console.log(`Ippo attacks Manny with a ${ippoRandomAtks} and got a CRITICAL DAMAGE of ${f2AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
-                  if (f1CurrentHp <= 0) {
-                    console.log(` `);
-                    console.log(`Manny is K.O. Ippo Makunochi WINS`);
-                    fightOver = true;
-                    return;
-                  }
+                  if(f2AtkDamage <=15){  //set a mininum damage for critical hit
+                      f2AtkDamage = fighter2.strength;
+                      f1CurrentHp -= f2AtkDamage;
+                      console.log(`Ippo attacks Manny with a ${ippoRandomAtks} and does a damage of ${f2AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
+                    }else{
+                      f2CurrentHp -= f1AtkDamage;
+                      console.log(`Ippo attacks Manny with a ${ippoRandomAtks} and got a CRITICAL DAMAGE of ${f2AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
+                      if (f2CurrentHp <= 0) {
+                        console.log(` `); 
+                        console.log(`Ippo is K.O. Manny Pacquiao WINS`);
+                          fightOver = true;// when one of the fighters' Hp is <=0, the loop is ended.
+                          return;
+                      }
+                    }
                } else {
                   f1CurrentHp -= f2AtkDamage;
                   if(f2AtkDamage === 0){    //If attack is = 0, means evaded attack
@@ -160,43 +178,49 @@ for (let index = 0; index < 12; index++) {
                   if (f1CurrentHp <= 0) {
                     console.log(` `);
                     console.log(`Manny is K.O. Ippo Makunochi WINS`);
-                    fightOver = true;
+                    fightOver = true;// when one of the fighters' Hp is <=0, the loop is ended.
                     return;
                   }
                 }
                 if (isCriticalHit()) {
                   f1AtkDamage = Math.floor((f1AtkDamage*1.2)+10); //  Double the damage for critical hit, in case of random damage is 0, add 10
-                  f2CurrentHp -= f1AtkDamage;
-                  console.log(`Manny attacks Ippo with a ${mannyRandomAtks} and got a CRITICAL DAMAGE of ${f1AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
+                  if(f1AtkDamage <=15){  //set a mininum damage for critical hit
+                    f1AtkDamage = fighter1.strength;
+                    f2CurrentHp -= f1AtkDamage;
+                      console.log(`Manny attacks Ippo with a ${mannyRandomAtks} and does a damage of ${f1AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
+                    }else{
+                    f2CurrentHp -= f1AtkDamage;
+                    console.log(`Manny attacks Ippo with a ${mannyRandomAtks} and got a CRITICAL DAMAGE of ${f1AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
                     if (f2CurrentHp <= 0) {
                       console.log(` `); 
                       console.log(`Ippo is K.O. Manny Pacquiao WINS`);
-                        fightOver = true;
+                        fightOver = true;// when one of the fighters' Hp is <=0, the loop is ended.
                         return;
                     }
+                  }
                     console.log(` `);
                    } else {
                       f2CurrentHp -= f1AtkDamage;
-                      if(f1AtkDamage === 0){
+                      if(f1AtkDamage === 0){  //If attack is = 0, means evaded attack
                         console.log(`Manny attacks Ippo with a ${mannyRandomAtks} but Ippo dodges it. Causes ${f1AtkDamage} damage to Ippo's HP.\nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
                       }else{
                         console.log(`Manny attacks Ippo with a ${mannyRandomAtks} and does a damage of ${f1AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
                       }
-                      if (f2CurrentHp <= 0) {
-                        console.log(` `);
+                      if (f2CurrentHp <= 0) { //if the Hp of fighter 2 is less than or to 0, executed this 
+                        console.log(` `); // 1 empty block
                         console.log(`Ippo is K.O. Manny Pacquiao WINS`);
-                        fightOver = true;
+                        fightOver = true; // when one of the fighters' Hp is <=0, the loop is ended.
                         return;
                       }
-                      console.log(` `);
+                      console.log(` `); // 1 empty block
                     }
             }
 
-        if (f2CurrentHp <= 0 && f1CurrentHp <= 0) {
-            console.log(`Both Fighters are K.O. It's a draw!`);
-            fightOver = true; 
-            return;
-            }
+        // if (f2CurrentHp <= 0 && f1CurrentHp <= 0) {// if both fighters's 
+        //     console.log(`Both Fighters are K.O. It's a draw!`);
+        //     fightOver = true; 
+        //     return;
+        //     }
       if (round === 12) {
           if (f1CurrentHp < f2CurrentHp) {
               console.log(` `);
