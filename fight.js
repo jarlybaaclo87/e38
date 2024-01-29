@@ -14,38 +14,6 @@ var fighter2 = {
       return Math.floor(Math.random() * (strength - min)) + min;
   }
 }
-// var f1counterAtk = {
-//   critChance = function(min = 0, strength) {
-//     let chance =  Math.floor(Math.random() * (5 - 2)) + 2;
-//           if(chance===2){
-//             fighter1.strength * 2.5;
-//           }
-//           return chance;
-//   }
-// }
-// var f2counterAtk = {
-//   critChance = function(min = 0, strength) {
-//     let chance =  Math.floor(Math.random() * (5 - 2)) + 2;
-//           if(chance===2){
-//             fighter2.strength * 2.5;
-//           }
-//           return chance;
-//   }
-// }
-// var f1Atk = {
-//    skills = [Straight-Punch, Uppercut, Right-Hook, Left-Hook, Liver-blow],
-//     attacks: function(){
-//       let atk = Math.floor(Math.random() * (5 - 1)) + 1;
-//       return skills[atk];
-//     }
-//    }
-//    var f2Atk = {
-//     skill = [Straight-Punch, Uppercut, Right-Hook, Left-Hook, Liver-blow],
-//      atkskill: function(){
-//        let atk = Math.floor(Math.random() * (5 - 1)) + 1;
-//        return  skill[stk];
-//      }
-//     }
 var MannyAtks = {
   skills: ['Straight-Left-Punch', 'Left-Uppercut', 'Right-Hook', 'Overhand-Left-Punch', 'Body-Shot','Counter-Punch'],
   boxSkills: function() {
