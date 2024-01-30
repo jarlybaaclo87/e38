@@ -24,15 +24,15 @@ class StreetFighter {
               let f1AtkDamage = this.calculateDamage(fighter1);
               let f2AtkDamage = this.calculateDamage(fighter2);
 
-              // Update health points based on damage
-              f1CurrentHp -= f2AtkDamage;
+              
+              f1CurrentHp -= f2AtkDamage;// Update health points based on damage
               f2CurrentHp -= f1AtkDamage;
 
               console.log(`Round ${round}`);
 
               // Fight details for each round
-              console.log(`Manny attacks Ippo with a ${mannyRandomAtks} and does a damage of ${f1AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
-              console.log(`Ippo attacks Manny with a ${ippoRandomAtks} and does a damage of ${f2AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);
+              console.log(`Manny attacks Ippo with a ${mannyRandomAtks} and does a damage of ${f1AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);// Fight details for each round
+              console.log(`Ippo attacks Manny with a ${ippoRandomAtks} and does a damage of ${f2AtkDamage}. \nManny's health: ${f1CurrentHp} \nIppo's health: ${f2CurrentHp}`);// Fight details for each round
 
               // Check if fight is over
               if (f1CurrentHp <= 0 || f2CurrentHp <= 0 || round === 12) {
